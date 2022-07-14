@@ -35,12 +35,12 @@ public class PostsApiControllerTest {
     private PostsRepository postsRepository;
 
     @After
-    public void tearDown() throws Exception{
+    public void tearDown() throws Exception {
         postsRepository.deleteAll();
     }
 
     @Test
-    public void Posts_등록된다() throws Exception{
+    public void Posts_등록된다() throws Exception {
         //given
         String title = "title";
         String content = "content";
@@ -50,7 +50,7 @@ public class PostsApiControllerTest {
                 .author("author")
                 .build();
 
-        String url = "http://localhost:"+port+"/api/v1/posts";
+        String url = "http://localhost:" + port + "/api/v1/posts";
 
         //when
         ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url, requestDto, Long.class);
@@ -65,7 +65,7 @@ public class PostsApiControllerTest {
     }
 
     @Test
-    public void Posts_수정된다() throws Exception{
+    public void Posts_수정된다() throws Exception {
         //given
         Posts savedPosts = postsRepository.save(Posts.builder()
                 .title("title")
@@ -82,7 +82,7 @@ public class PostsApiControllerTest {
                 .content(expectedContent)
                 .build();
 
-        String url = "http://localhost:"+port+"/api/v1/posts/"+updateId;
+        String url = "http://localhost:" + port + "/api/v1/posts/" + updateId;
 
         HttpEntity<PostsUpdateRequestDto> requestEntity = new HttpEntity<>(requestDto);
 
@@ -96,7 +96,5 @@ public class PostsApiControllerTest {
         List<Posts> all = postsRepository.findAll();
         assertThat(all.get(0).getTitle()).isEqualTo(expectedTitle);
         assertThat(all.get(0).getContent()).isEqualTo(expectedContent);
-
-
     }
 }
