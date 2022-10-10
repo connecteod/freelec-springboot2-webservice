@@ -47,3 +47,6 @@ jobs:
       
       - name: Upload to S3
         run: aws s3 cp --region ap-northeast-2 --acl private ./freelec-springboot2-webservice.zip s3://myaws-springboot-build/
+
+      - name: CodeDeploy
+        run: aws deploy create-deployment --application-name freelec-springboot2-webservice --deployment-group-name freelec-springboot2-webservice-group --s3-location bucket=myaws-springboot-build,key=freelec-springboot2-webservice.zip,bundleType=zip
