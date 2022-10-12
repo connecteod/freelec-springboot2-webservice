@@ -34,9 +34,25 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean build
         shell: bash
-        
+
+      - name: Make Directory
+        run: mkdir -p deploy
+        shell: bash
+
+      - name: Copy Script
+        run: cp ./scripts/*.sh ./deploy
+        shell: bash
+
+      - name: Copy appspec.yml
+        run: cp ./appspec.yml ./deploy
+        shell: bash
+
+      - name: Copy Jar
+        run: cp ./build/libs/*.jar ./deploy
+        shell: bash
+
       - name: Make zip file
-        run: zip -r freelec-springboot2-webservice *
+        run: zip -r freelec-springboot2-webservice.zip ./deploy
       
       - name: AWS configure credentials
         uses: aws-actions/configure-aws-credentials@v1
